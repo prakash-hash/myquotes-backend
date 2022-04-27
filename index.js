@@ -4,12 +4,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 // mongoose.set("useNewUrlParser", true);
 // mongoose.set("useFindAndModify", false);
 // mongoose.set("useCreateIndex", true);
 
-const port = 3031;
+const port = process.env.PORT;
 const config = require("./config");
 
 const postsRouter = require("./routes/Post");
