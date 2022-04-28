@@ -74,13 +74,16 @@ router.get("/list/tags", async (req, res) => {
     }
 });
 
-router.get("/list/authors", async (req, res) => {
+router.get("/list/authors/:pageNo?", async (req, res) => {
     try {
         let post = await Post.find({}).distinct('author');
+        let totalPage = Math.ceil(post.length/20);
+        let pageNo = req.params.pageNo ? req.params.pageNo : Math.random()*totalPage; 
         if (post) {
             res.status(200).json({
                 status: 200,
-                data: post.slice(0,20),
+                data: post.slice((pageNo-1)*20,pageNo*20),
+                totalPages:totalPage,
             });
         }
         else {
@@ -98,13 +101,17 @@ router.get("/list/authors", async (req, res) => {
     }
 });
 
-router.get("/list/author=:authorNname", async (req, res) => {
+router.get("/list/author=:authorNname/:pageNo?", async (req, res) => {
     try {
         let post = await Post.find({author: req.params.authorNname});
+        let pageNo = req.params.pageNo ? req.params.pageNo : 1;
+        let totalResults = post.length;
+        let totalPages = Math.ceil(totalResults/20);
         if (post) {
             res.status(200).json({
                 status: 200,
-                data: post,
+                data: post.slice((pageNo-1)*20,pageNo*20),
+                totalPages:totalPages,
             });
         }
         else {
@@ -151,20 +158,20 @@ router.get("/list/postId=:postId", async (req, res) => {
 });
 
 
-router.get("/list/pageNo=:pageNo?/limit=:limit?/category=:category?", async (req, res) => {
+router.get("/list/tag=:tag?/:pageNo?", async (req, res) => {
     try {
         let pageNo = req.params.pageNo ? req.params.pageNo : 1;
-        let limit = req.params.limit ? req.params.limit : 20;
-        let category = req.params.category ? req.params.category : "love";
+        let limit = 20;
+        let tag = req.params.tag ? req.params.tag : "love";
         
-        let post = await Post.find({tag:category}).skip((pageNo-1)*req.params.limit).limit(limit);
+        let post = await Post.find({tag:tag}).skip((pageNo-1)*req.params.limit).limit(limit);
 
-        let totalCount = await Post.countDocuments({tag:req.params.category});
+        let totalCount = await Post.countDocuments({tag:tag});
         if (post) {
             res.status(200).json({
                 status: 200,
                 data: post,
-                total:totalCount,
+                totalPages:totalCount/limit,
             });
         }
         else {
@@ -183,54 +190,60 @@ router.get("/list/pageNo=:pageNo?/limit=:limit?/category=:category?", async (req
     }
 });
 
-router.put("/:postId", async (req, res) => {
-    try {
-        let post = await Post.findByIdAndUpdate(req.params.postId, req.body, {
-            new: true,
-        });
-        if (post) {
-            res.status(200).json({
-                status: 200,
-                data: post,
-            });
-        }
-        else {
-            res.status(400).json({
-                status: 400,
-                message: "No post found",
-            });
-        }
-    }
-    catch (err) {
-        res.status(400).json({
-            status: 400,
-            message: err.message,
-        });
-    }
 
-});
+// Uncomment below code to enable update quote
 
-router.delete("/:postId", async (req, res) => {
-    try {
-        let post = await Post.findByIdAndRemove(req.params.postId);
-        if (post) {
-            res.status(200).json({
-                status: 200,
-                message: "Post deleted successfully",
-            });
+// router.put("/:postId", async (req, res) => {
+//     try {
+//         let post = await Post.findByIdAndUpdate(req.params.postId, req.body, {
+//             new: true,
+//         });
+//         if (post) {
+//             res.status(200).json({
+//                 status: 200,
+//                 data: post,
+//             });
+//         }
+//         else {
+//             res.status(400).json({
+//                 status: 400,
+//                 message: "No post found",
+//             });
+//         }
+//     }
+//     catch (err) {
+//         res.status(400).json({
+//             status: 400,
+//             message: err.message,
+//         });
+//     }
 
-        } else {
-            res.status(400).json({
-                status: 400,
-                message: "No post found",
-            });
-        }
-    } catch (err) {
-        res.status(400).json({
-            status: 400,
-            message: err.message,
-        });
-    }
-});
+// });
+
+
+// Uncomment below code to enable deleting quote
+
+// router.delete("/:postId", async (req, res) => {
+//     try {
+//         let post = await Post.findByIdAndRemove(req.params.postId);
+//         if (post) {
+//             res.status(200).json({
+//                 status: 200,
+//                 message: "Post deleted successfully",
+//             });
+
+//         } else {
+//             res.status(400).json({
+//                 status: 400,
+//                 message: "No post found",
+//             });
+//         }
+//     } catch (err) {
+//         res.status(400).json({
+//             status: 400,
+//             message: err.message,
+//         });
+//     }
+// });
 
 module.exports = router;

@@ -33,7 +33,7 @@ mongoose.connect(dbUrl, options, (err) => {
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use("/", express.static('public'));
 app.use("/posts", postsRouter);
-
 app.listen(port, () => console.log("Running on " + port));
 module.exports = app;

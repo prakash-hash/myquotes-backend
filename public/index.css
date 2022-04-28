@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Roboto+Mono:wght@200&display=swap');
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto Mono', monospace;
+}
+.Header {
+    margin-top: 20px;
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+td {
+    padding: 40px;
+    font-weight: bold;
+}
+
+.instructions{
+align-items: center;
+text-align: center;
+}
+
+@media screen and (max-width: 600px){
+    td{
+        font-size: 15px;
+    }
+    td{
+        padding: 10px;
+    }
+}
