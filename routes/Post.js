@@ -50,13 +50,16 @@ router.get("/list", async (req, res) => {
     }
 });
 
-router.get("/list/tags", async (req, res) => {
+router.get("/list/tags/:pageNo?", async (req, res) => {
     try {
         let post = await Post.find({}).distinct('tag');
+        let pageNo = req.params.pageNo ? req.params.pageNo : 1 ;
+        let totalPage = Math.ceil(post.length/20);
         if (post) {
             res.status(200).json({
                 status: 200,
-                data: post,
+                data: post.slice((pageNo-1)*20,pageNo*20),
+                totalPage:totalPage,
             });
         }
         else {
