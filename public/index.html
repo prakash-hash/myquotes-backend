@@ -11,6 +11,49 @@
 </head>
 
 <body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Roboto+Mono:wght@200&display=swap');
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .Header {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+
+        td {
+            padding: 40px;
+            font-weight: bold;
+        }
+
+        .instructions {
+            align-items: center;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            td {
+                font-size: 15px;
+            }
+
+            td {
+                padding: 10px;
+            }
+        }
+    </style>
     <div class="main">
         <div class="Header">
             <h1>
@@ -30,27 +73,37 @@
                 </tr>
                 <tr>
                     <td>To get the list of available tags</td>
-                    <td><a href="http://api.myquotes.space/posts/list/tags">http://api.myquotes.space/posts/list/tags</a></td>
+                    <td><a
+                            href="http://api.myquotes.space/posts/list/tags">http://api.myquotes.space/posts/list/tags</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>To get the list of available authors</td>
-                    <td><a href="http://api.myquotes.space/posts/list/authors">http://api.myquotes.space/posts/list/authors</a></td>
+                    <td><a
+                            href="http://api.myquotes.space/posts/list/authors">http://api.myquotes.space/posts/list/authors</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>To get the list of quotes of a particular author E.g Will Smith</td>
-                    <td><a href="http://api.myquotes.space/posts/list/author=Will Smith">http://api.myquotes.space/posts/list/author=Will Smith</a></td>
+                    <td><a href="http://api.myquotes.space/posts/list/author=Will Smith">http://api.myquotes.space/posts/list/author=Will
+                            Smith</a></td>
                 </tr>
                 <tr>
                     <td>If there are more than 1 page for a particular author E.g Will Smith</td>
-                    <td><a href="http://api.myquotes.space/posts/list/author=Will Smith/2">http://api.myquotes.space/posts/list/author=Will Smith/2</a></td>
+                    <td><a href="http://api.myquotes.space/posts/list/author=Will Smith/2">http://api.myquotes.space/posts/list/author=Will
+                            Smith/2</a></td>
                 </tr>
                 <tr>
                     <td>To get the list of quotes of a particular tag/category E.g love</td>
-                    <td><a href="http://api.myquotes.space/posts/list/tag=love">http://api.myquotes.space/posts/list/tag=love</a></td>
+                    <td><a
+                            href="http://api.myquotes.space/posts/list/tag=love">http://api.myquotes.space/posts/list/tag=love</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>If there are more than 1 page for a particular tag/categor E.g love</td>
-                    <td><a href="http://api.myquotes.space/posts/list/tag=love/2">http://api.myquotes.space/posts/list/tag=love/2</a></td>
+                    <td><a
+                            href="http://api.myquotes.space/posts/list/tag=love/2">http://api.myquotes.space/posts/list/tag=love/2</a>
+                    </td>
                 </tr>
 
             </table>

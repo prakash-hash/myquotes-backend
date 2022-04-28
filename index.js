@@ -34,7 +34,10 @@ mongoose.connect(dbUrl, options, (err) => {
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use("/", express.static(path.join(__dirname,'public')));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+// app.use("/", express.static(path.join(__dirname,'public')));
 app.use("/posts", postsRouter);
 app.listen(port, () => console.log("Running on " + port));
 module.exports = app;
