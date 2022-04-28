@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
@@ -33,7 +34,7 @@ mongoose.connect(dbUrl, options, (err) => {
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use("/", express.static('public'));
+app.use("/", express.static(path.join(__dirname,'public')));
 app.use("/posts", postsRouter);
 app.listen(port, () => console.log("Running on " + port));
 module.exports = app;
